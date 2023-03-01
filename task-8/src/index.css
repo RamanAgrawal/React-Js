@@ -1,0 +1,11 @@
+table {
+  width: 70%;
+  margin: auto;
+  height: 190px;
+}
+
+thead {
+  height: 35px;
+  background: burlywood;
+  color: white;
+}
