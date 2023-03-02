@@ -1,0 +1,19 @@
+#root {
+  background-color: bisque;
+}
+
+table {
+  width: 40%;
+  margin: auto;
+  text-align: center;
+}
+
+.Items {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
