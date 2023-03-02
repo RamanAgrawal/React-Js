@@ -1,4 +1,5 @@
 import "./App.css";
+import ExpenseForm from "./Components/ExpenseForm";
 import ExpenseItems from "./Components/ExpenseItems";
 
 function App() {
@@ -22,8 +23,9 @@ function App() {
 
   return (
     <>
+      <ExpenseForm />
       <h1 style={{ textAlign: "center", textDecoration: "underline" }}>
-        Expense-Items
+        Expense
       </h1>
       <div className="Items">
         {expenses.map((items) => {
