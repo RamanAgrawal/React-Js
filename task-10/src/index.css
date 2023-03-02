@@ -1,19 +1,23 @@
 #root {
   background-color: bisque;
+  padding: 0px;
+  margin: -25px;
 }
 
 table {
-  width: 40%;
+  width: 20%;
   margin: auto;
   text-align: center;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  font-size: 20px;
 }
 
 .Items {
   display: flex;
   flex-direction: column;
   gap: 30px;
-}
-body {
-  padding: 0;
-  margin: 0;
 }
