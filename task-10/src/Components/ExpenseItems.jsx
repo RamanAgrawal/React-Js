@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import ExpenseAmount from "./ExpenseAmount";
 import ExpenseDate from "./ExpenseDate";
 // import { useRef } from "react";
@@ -8,8 +9,15 @@ const ExpenseItems = (props) => {
   //   Delete.current(e.target.parentNode.remove());
   // };
 
+  const [price, setPrice] = useState(props.amount);
+
   const handleClick = (e) => {
     e.target.parentNode.remove();
+  };
+
+  const handleEdit = () => {
+    setPrice("100$");
+    // console.log(price);
   };
 
   return (
@@ -30,25 +38,45 @@ const ExpenseItems = (props) => {
             </td>
             <td>{props.title}</td>
             <td>
-              <ExpenseAmount amount={props.amount} />
+              <ExpenseAmount amount={price} />
             </td>
           </tr>
         </tbody>
       </table>
-      <button
-        onClick={handleClick}
+      <div
         style={{
-          display: "block",
-          margin: "auto",
-          padding: "4px",
-          fontSize: "16px",
-          background: "red",
-          border: "none",
-          cursor: "pointer",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "20px",
+          margin: "1% 0px",
         }}
       >
-        Delete Expense
-      </button>
+        <button
+          onClick={handleClick}
+          style={{
+            padding: "4px",
+            fontSize: "16px",
+            background: "red",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Delete Expense
+        </button>
+        <button
+          style={{
+            padding: "4px",
+            fontSize: "16px",
+            background: "red",
+            border: "none",
+            cursor: "pointer",
+          }}
+          onClick={handleEdit}
+        >
+          Edit Price
+        </button>
+      </div>
     </div>
   );
 };

@@ -22,7 +22,9 @@ function App() {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Expense-Items</h1>
+      <h1 style={{ textAlign: "center", textDecoration: "underline" }}>
+        Expense-Items
+      </h1>
       <div className="Items">
         {expenses.map((items) => {
           return (
