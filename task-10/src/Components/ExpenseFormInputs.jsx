@@ -1,26 +1,30 @@
 import React, { useState } from "react";
 
 const ExpenseFormInputs = () => {
-  const [form, setForm] = useState({
-    date: "",
-    title: "",
-    amount: "",
-  });
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => {
-      return { ...prev, [name]: value };
-    });
+  const [title, setTitle] = useState("");
+  const [amount, setamount] = useState("");
+  const [date, setdate] = useState("");
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
   };
+  const handleAmountChange = (e) => {
+    setamount(e.target.value);
+  };
+  const handleDateChange = (e) => {
+    setdate(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    console.log(title, amount, date);
   };
+
   return (
     <form>
       <div>
         <label htmlFor="">Date : </label>
-        <input type="date" name="date" onChange={handleInputChange} />
+        <input type="date" name="date" onChange={handleDateChange} />
       </div>
       <div>
         <label htmlFor="">Add Title : </label>
@@ -28,7 +32,7 @@ const ExpenseFormInputs = () => {
           name="title"
           type="text"
           placeholder="Add Title"
-          onChange={handleInputChange}
+          onChange={handleTitleChange}
         />
       </div>
       <div>
@@ -37,7 +41,7 @@ const ExpenseFormInputs = () => {
           name="amount"
           type="text"
           placeholder="Add Amount"
-          onChange={handleInputChange}
+          onChange={handleAmountChange}
         />
       </div>
       <input
@@ -47,6 +51,7 @@ const ExpenseFormInputs = () => {
           background: "red",
           border: "none",
           cursor: "pointer",
+          marginTop: "20px",
         }}
         type="submit"
         value={"Submit"}

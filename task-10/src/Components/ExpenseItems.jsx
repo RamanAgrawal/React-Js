@@ -43,40 +43,37 @@ const ExpenseItems = (props) => {
           </tr>
         </tbody>
       </table>
-      <div
+
+      <button
+        onClick={handleClick}
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "20px",
-          margin: "1% 0px",
+          display: "block",
+          margin: "10px auto",
+          padding: "8px 11px",
+          color: "white",
+          fontSize: "16px",
+          background: "red",
+          border: "none",
+          cursor: "pointer",
         }}
       >
-        <button
-          onClick={handleClick}
-          style={{
-            padding: "4px",
-            fontSize: "16px",
-            background: "red",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Delete Expense
-        </button>
-        <button
-          style={{
-            padding: "4px",
-            fontSize: "16px",
-            background: "red",
-            border: "none",
-            cursor: "pointer",
-          }}
-          onClick={handleEdit}
-        >
-          Edit Price
-        </button>
-      </div>
+        Delete Expense
+      </button>
+      <button
+        style={{
+          display: "block",
+          margin: "auto",
+          padding: "8px 34px",
+          fontSize: "16px",
+          color: "white",
+          background: "red",
+          border: "none",
+          cursor: "pointer",
+        }}
+        onClick={handleEdit}
+      >
+        Edit Price
+      </button>
     </div>
   );
 };

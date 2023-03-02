@@ -16,9 +16,13 @@ body {
   gap: 30px;
 }
 
+.App {
+  background-color: bisque;
+}
+
 form {
   width: 50%;
-  margin: auto;
+  margin: 5% auto;
   display: flex;
   justify-content: center;
   align-items: center;

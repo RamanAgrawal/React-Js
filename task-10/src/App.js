@@ -22,7 +22,7 @@ function App() {
   ];
 
   return (
-    <>
+    <div className="App">
       <ExpenseForm />
       <h1 style={{ textAlign: "center", textDecoration: "underline" }}>
         Expense
@@ -39,7 +39,7 @@ function App() {
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
 
