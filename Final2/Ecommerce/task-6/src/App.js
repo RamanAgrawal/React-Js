@@ -5,6 +5,11 @@ import "./App.css";
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handleError = () => {
+    setError(false);
+  };
 
   const fetch = async () => {
     try {
@@ -15,7 +20,8 @@ function App() {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log("error:", error);
+      setError(true);
+      throw new Error("Something went wrong ....Retrying");
     }
   };
 
@@ -32,6 +38,9 @@ function App() {
   return (
     <div className="App">
       <button onClick={fetch}>Fetch Movies</button>
+      <br />
+      <br />
+      <button onClick={handleError}>Cancle</button>
       <div>
         {data.map((el) => {
           return (
@@ -43,6 +52,7 @@ function App() {
         })}
       </div>
       {!loading && data.length === 0 && <p>No movies</p>}
+      {error && <p>Something went wrong ....Retrying</p>}
     </div>
   );
 }
