@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./App.css";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     setError(false);
   };
 
-  const fetch = async () => {
+  const fetch = useCallback(async () => {
     try {
       setLoading(true);
       let res = await axios.get("https://swapi.dev/api/films");
@@ -23,7 +23,10 @@ function App() {
       setError(true);
       throw new Error("Something went wrong ....Retrying");
     }
-  };
+  });
+  useEffect(() => {
+    fetch();
+  }, []);
 
   if (loading) {
     return (
@@ -37,9 +40,7 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={fetch}>Fetch Movies</button>
-      <br />
-      <br />
+      <button onClick={fetch}>Fetch</button>
       <button onClick={handleError}>Cancle</button>
       <div>
         {data.map((el) => {
