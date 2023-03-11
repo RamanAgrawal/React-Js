@@ -1,0 +1,19 @@
+ul {
+  list-style: none;
+}
+
+footer {
+  background-color: rgb(123, 218, 255);
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+footer ul {
+  display: flex;
+  gap: 20px;
+}
+
+ul li img {
+  width: 20px;
+  background-color: black;
+}

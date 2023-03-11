@@ -1,11 +1,35 @@
 table {
-  width: 70%;
-  margin: auto;
-  height: 190px;
+  margin-left: 10%;
+  width: 53%;
+  text-align: center;
 }
 
-thead {
-  height: 35px;
-  background: burlywood;
-  color: white;
+body {
+  padding: 0px;
+  margin: 0px;
+  font-size: 20px;
+  background-color: bisque;
+}
+
+.Items {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.App {
+  background-color: bisque;
+}
+
+form {
+  width: 50%;
+  margin: 5% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+input {
+  height: 40px;
 }

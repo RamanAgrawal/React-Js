@@ -1,11 +1,66 @@
 table {
-  width: 70%;
-  margin: auto;
-  height: 190px;
+  margin-left: 10%;
+  width: 53%;
+  text-align: center;
 }
 
-thead {
-  height: 35px;
-  background: burlywood;
-  color: white;
+body {
+  padding: 0px;
+  margin: 0px;
+  font-size: 20px;
+  background-color: bisque;
+}
+
+.Items {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.App {
+  background-color: bisque;
+}
+
+form {
+  width: 50%;
+  margin: 5% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+input {
+  height: 40px;
+}
+
+.chart-bar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-bar__inner {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #313131;
+  border-radius: 12px;
+  background-color: #c3b4c3;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.chart-bar__fill {
+  background-color: #4826b9;
+  width: 100%;
+  transition: all 0.3s ease-out;
+}
+
+.chart-bar__label {
+  font-weight: bold;
+  font-family: 0.5rem;
+  text-align: center;
 }

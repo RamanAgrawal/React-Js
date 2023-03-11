@@ -1,0 +1,275 @@
+body {
+  background-color: #171717ef;
+  color: white;
+}
+
+.items {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  align-items: center;
+  background-color: #383638;
+  padding: 30px;
+  border-radius: 10px;
+  font-size: 23px;
+  justify-content: space-between;
+}
+
+.items:hover {
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.All-items {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 60%;
+  padding: 30px;
+  border-radius: 10px;
+  margin: auto;
+  height: auto;
+}
+
+.date_title {
+  display: flex;
+  color: deepskyblue;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-family: cursive;
+}
+
+.date {
+  background-color: #383638;
+  padding: 20px;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.filter {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  font-family: cursive;
+}
+.btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+p {
+  text-align: center;
+  font-size: 22px;
+  font-family: cursive;
+}
+.filter select {
+  width: 20%;
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.filter label {
+  color: white;
+}
+
+.amount {
+  background-color: #3a0053;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: cursive;
+}
+
+.Form-Parent {
+  width: 55%;
+  background-color: #a385f3;
+  padding: 60px;
+  margin: 4% auto;
+  border-radius: 10px;
+  height: 200px;
+}
+label {
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
+}
+
+input {
+  height: 40px;
+  width: 170%;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.title_AMount {
+  display: flex;
+  align-items: center;
+  font-family: cursive;
+  gap: 290px;
+}
+
+.title_AMount div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Date {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 10px;
+  font-family: cursive;
+}
+
+.Date input {
+  width: 35%;
+  padding: 5px;
+}
+
+h1 {
+  text-align: center;
+  font-family: cursive;
+  text-decoration: underline;
+}
+
+.Add {
+  float: right;
+  background-color: #3a0053;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: white;
+}
+
+.Add:hover {
+  background-color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: #3a0053;
+}
+.dele {
+  background-color: #3a0053;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: white;
+}
+.dele:hover {
+  background-color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: #3a0053;
+}
+.AddExpense {
+  background-color: #3a0053;
+  padding: 10px;
+  margin: 79px auto;
+  display: block;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: white;
+}
+
+.AddExpense:hover {
+  background-color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: #3a0053;
+}
+
+.cancel {
+  background-color: #3a0053;
+  padding: 10px;
+  float: right;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: white;
+}
+
+.cancel:hover {
+  background-color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: #3a0053;
+}
+
+.chart-bar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-bar__inner {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #313131;
+  border-radius: 12px;
+  background-color: #c3b4f3;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.chart-bar__fill {
+  background-color: #4826b9;
+  width: 100%;
+  transition: all 0.3s ease-out;
+}
+
+.chart-bar__label {
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-align: center;
+}
+.chart {
+  padding: 1rem;
+  color: black;
+  border-radius: 12px;
+  background-color: #f8dfff;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  height: 10rem;
+}
+.name {
+  background-color: white;
+  padding: 10px;
+  float: right;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: #3a0053;
+}
+
+.name:hover {
+  background-color: #3a0053;
+  padding: 10px;
+
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: cursive;
+  color: white;
+}
+::-webkit-scrollbar {
+  display: none;
+}

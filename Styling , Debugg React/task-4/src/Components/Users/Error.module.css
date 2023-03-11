@@ -1,0 +1,46 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  font-family: cursive;
+}
+
+.modal {
+  position: fixed;
+  top: 30vh;
+  font-family: cursive;
+  left: 10%;
+  width: 80%;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.header {
+  font-family: cursive;
+  background: #4f005f;
+  padding: 1rem;
+  color: white;
+}
+
+.header h2 {
+  font-family: cursive;
+  margin: 0;
+  color: white;
+}
+
+.content {
+  font-family: cursive;
+  padding: 1rem;
+  color: white;
+}
+
+.actions {
+  padding: 1rem;
+  cursor: pointer;
+  font-family: cursive;
+  display: flex;
+  justify-content: flex-end;
+}

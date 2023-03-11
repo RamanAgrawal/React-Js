@@ -1,0 +1,28 @@
+.users {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.users ul {
+  list-style: none;
+}
+
+.users li {
+  list-style: none;
+  background-color: white;
+  color: black;
+  padding: 20px;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  font-family: cursive;
+}
+
+.users li:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+}

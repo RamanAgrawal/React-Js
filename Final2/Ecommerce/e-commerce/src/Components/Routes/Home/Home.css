@@ -1,0 +1,82 @@
+.HomeTop {
+  background-color: #777777;
+  color: white;
+  height: 400px;
+}
+.Home div h1 {
+  padding: 40px;
+  font-size: 100px;
+}
+.Home div button {
+  display: block;
+  border: 1px solid #56ccf2;
+  background: transparent;
+  padding: 15px 30px;
+  font-size: 23px;
+  font-weight: 100;
+  margin: 10px auto;
+  background: inherit;
+  cursor: pointer;
+  color: white;
+}
+
+.Home div button + button {
+  cursor: pointer;
+  display: block;
+  border: 2px solid #56ccf2;
+  border-radius: 62%;
+  padding: 14px;
+  font-size: 32px;
+  font-weight: 200;
+  margin: 20px auto;
+  background: inherit;
+  color: #56ccf2;
+}
+.tour-item {
+  display: flex;
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 30px;
+}
+
+#tours {
+  margin-top: 2%;
+  width: 60%;
+}
+
+#tours .tour-item {
+  display: flex;
+  align-items: center;
+  margin: 2% auto;
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+#tours .tour-item .tour-date {
+  width: 12%;
+}
+
+#tours .tour-item .tour-place {
+  width: 25%;
+  color: #777;
+}
+
+#tours .tour-item .tour-spec-place {
+  width: 53%;
+  color: #777;
+}
+
+#tours .tour-item .buy-btn {
+  width: 20%;
+  background: #56ccf2;
+  color: white;
+  border: none;
+  padding: 2px 0px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}

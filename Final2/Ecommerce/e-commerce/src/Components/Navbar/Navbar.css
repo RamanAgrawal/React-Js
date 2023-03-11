@@ -1,0 +1,15 @@
+.me-auto-2 a {
+  color: white;
+  text-decoration: none;
+}
+.me-auto-2 {
+  display: flex;
+  gap: 20px;
+  font-size: 22px;
+  justify-content: center;
+  font-family: cursive;
+}
+
+.me-auto-2 a:hover {
+  color: aqua;
+}

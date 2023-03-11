@@ -1,0 +1,30 @@
+.About h1 {
+  background-color: #777777;
+  color: white;
+  padding: 40px;
+  font-size: 100px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.About h4 {
+  font-family: cursive;
+}
+
+.pictext {
+  width: 60%;
+  margin: auto;
+}
+
+.pictext p {
+  font-size: 17px;
+  margin: 20px;
+  color: #777;
+}
+
+.pictext img {
+  float: left;
+  margin: 20px 50px;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}

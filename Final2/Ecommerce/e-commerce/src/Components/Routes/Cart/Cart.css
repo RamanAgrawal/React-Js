@@ -1,0 +1,26 @@
+.cart {
+  display: grid;
+  width: 80%;
+  margin: auto;
+  padding: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.cart div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart div img {
+  width: 40%;
+  border-radius: 14px;
+  transition: 1s all ease;
+}
+.cart div img:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
