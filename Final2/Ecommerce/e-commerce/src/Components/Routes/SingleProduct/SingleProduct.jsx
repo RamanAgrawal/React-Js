@@ -1,6 +1,6 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { parsePath, useParams } from "react-router";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { useParams } from "react-router";
 
 const SingleProduct = (props) => {
   const array = props.productsArr;
@@ -16,6 +16,8 @@ const SingleProduct = (props) => {
         <Col md={6}>
           <h2>{product.title}</h2>
           <p>Price : {product.price}</p>
+          <p>{product.description}</p>
+          <Button variant="primary">ADD TO CART</Button>
         </Col>
       </Row>
     </Container>
