@@ -8,7 +8,6 @@ import "./Navbar.css";
 
 function CollapsibleExample() {
   const value = useContext(CartContext);
-  console.log("value:", value);
   const length = value.items.length;
 
   return (
