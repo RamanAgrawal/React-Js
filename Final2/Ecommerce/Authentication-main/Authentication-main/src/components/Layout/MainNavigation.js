@@ -16,7 +16,7 @@ const MainNavigation = () => {
     setInterval(() => {
       localStorage.removeItem("token");
       history.replace("/auth");
-    }, 5000);
+    }, 300000);
   });
 
   const isLoggesIn = ctx.isLoggesIn;
