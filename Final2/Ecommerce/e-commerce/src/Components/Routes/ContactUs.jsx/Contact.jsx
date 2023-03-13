@@ -1,47 +1,41 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef } from "react";
 
 const Contact = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phn, setPhn] = useState("");
-
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleNumber = (e) => {
-    setPhn(e.target.value);
-  };
-
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const details = {
-      name,
-      email,
-      phn,
-    };
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
     try {
-      let res = await axios.post(
-        "https://e-commerce-1-55a40-default-rtdb.firebaseio.com/data.json",
-        details
+      let res = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAFw_ve1mrePQiCXf1PSeV6YiKn85aubec",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+            returnSecureToken: true,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      console.log("res:", res);
+      console.log(res);
     } catch (error) {
       console.log("error:", error);
     }
   };
-
   return (
-    <form>
-      <input onChange={handleName} type="text" placeholder="Name" />
-      <input onChange={handleEmail} type="text" placeholder="Email" />
-      <input onChange={handleNumber} type="text" placeholder="Phone-Number" />
-      <input onClick={handleSubmit} type="submit" value={"SUBMIT"} />
+    <form onSubmit={handleSubmit}>
+      <div>
+        <input ref={emailInputRef} type="text" placeholder="Email" />
+      </div>
+      <div>
+        <input ref={passwordInputRef} type="text" placeholder="Password" />
+      </div>
+      <button>Submit</button>
     </form>
   );
 };
