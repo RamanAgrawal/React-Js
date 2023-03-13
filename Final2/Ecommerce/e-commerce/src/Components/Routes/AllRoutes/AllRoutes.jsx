@@ -2,8 +2,9 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import About from "../About/About";
 import Cart from "../Cart/Cart";
-import Contact from "../ContactUs.jsx/Contact";
 import Home from "../Home/Home";
+import Login from "../Login/Login";
+import PrivateRoute from "../PrivateRoutes/PrivateRoute";
 import Products from "../Products/Products";
 import SingleProduct from "../SingleProduct/SingleProduct";
 
@@ -13,11 +14,15 @@ const AllROutes = (props) => {
       <Route path="/" element={<Home />} />
       <Route
         path="/products"
-        element={<Products productsArr={props.productsArr} />}
+        element={
+          <PrivateRoute>
+            <Products productsArr={props.productsArr} />
+          </PrivateRoute>
+        }
         exact
       />
       <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />}></Route>
+      <Route path="/login" element={<Login />} />
       <Route
         path="/products/:id"
         element={<SingleProduct productsArr={props.productsArr} />}
