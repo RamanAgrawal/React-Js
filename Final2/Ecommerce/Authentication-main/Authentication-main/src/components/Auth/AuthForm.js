@@ -1,8 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { AuthContext } from "../../Store/LoginContext";
 
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  const ctx = useContext(AuthContext);
+  console.log(ctx);
   const [isLogin, setIsLogin] = useState(true);
   const emailInput = useRef();
   const [isLoading, setIsLoading] = useState(false);
@@ -42,9 +45,6 @@ const AuthForm = () => {
         } else {
           res.json().then((data) => {
             let errorMessage = "Authentication failed";
-            // if ((errorMessage = data.error.message && data.error.message)) {
-            //   errorMessage = data.error.message;
-            // }
             alert("Login failed");
             throw new Error(errorMessage);
           });
@@ -52,6 +52,7 @@ const AuthForm = () => {
       })
       .then((data) => {
         console.log(data);
+        ctx.login(data.idToken);
       })
       .catch((err) => {
         alert(err.message);
