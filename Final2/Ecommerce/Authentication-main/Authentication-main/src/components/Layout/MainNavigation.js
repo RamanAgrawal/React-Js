@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../Store/LoginContext";
 
@@ -11,6 +11,14 @@ const MainNavigation = () => {
     ctx.logout();
     history.replace("/auth");
   };
+
+  useEffect(() => {
+    setInterval(() => {
+      localStorage.removeItem("token");
+      history.replace("/auth");
+    }, 5000);
+  });
+
   const isLoggesIn = ctx.isLoggesIn;
   return (
     <header className={classes.header}>
