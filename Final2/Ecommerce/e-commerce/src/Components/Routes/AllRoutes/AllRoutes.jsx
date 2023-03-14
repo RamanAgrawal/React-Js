@@ -27,7 +27,14 @@ const AllROutes = (props) => {
         path="/products/:id"
         element={<SingleProduct productsArr={props.productsArr} />}
       ></Route>
-      <Route path="/cart" element={<Cart />} />
+      <Route
+        path="/cart"
+        element={
+          <PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 };

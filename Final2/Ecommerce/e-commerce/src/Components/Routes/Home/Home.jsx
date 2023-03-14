@@ -1,4 +1,3 @@
-import { Button } from "bootstrap";
 import React from "react";
 import Footer from "../../Footer/Footer";
 import "./Home.css";

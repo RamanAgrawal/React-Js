@@ -29,6 +29,8 @@ const Login = () => {
           },
         }
       );
+      let data = await res.json();
+      console.log(data);
       if (res.ok) {
         alert("SIGN UP DONE");
         return res.json();
@@ -59,6 +61,7 @@ const Login = () => {
       );
       let result = await res.json();
       ctx.login(result.idToken);
+      localStorage.setItem("email", result.email);
       navigate("/products");
     } catch (error) {
       alert(error.message);
@@ -103,7 +106,7 @@ const Login = () => {
         <div>
           <input
             ref={loginPassword}
-            type="text"
+            type="password"
             placeholder="Enter Your Password"
           />
         </div>

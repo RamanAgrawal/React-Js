@@ -26,7 +26,16 @@ function CollapsibleExample() {
           <Link to={"/products"}>Products</Link>
           <Link to={"/about"}>About</Link>
           {isLoggesIn ? (
-            <button onClick={handleLogout}>Logout</button>
+            <button
+              style={{
+                border: "none",
+                background: "transparent",
+                color: "white",
+              }}
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
           ) : (
             <Link to={"/login"}>Login</Link>
           )}
