@@ -8,11 +8,12 @@ import "./Navbar.css";
 
 function CollapsibleExample() {
   const value = useContext(CartContext);
-  const length = value.items.length;
+  // const length = value.items.length;
   const navigate = useNavigate();
   const isLoggesIn = value.token;
   const handleLogout = () => {
     value.logout();
+    value.items.length = 0;
     navigate("/");
   };
   return (
@@ -39,7 +40,7 @@ function CollapsibleExample() {
           ) : (
             <Link to={"/login"}>Login</Link>
           )}
-          <Link to={"/cart"}>Cart {length}</Link>
+          <Link to={"/cart"}>Cart</Link>
         </Nav>
       </Container>
     </Navbar>

@@ -1,14 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import { CartContext } from "../../Store/CartContext";
 import Footer from "../../Footer/Footer";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const SingleProduct = (props) => {
   const value = useContext(CartContext);
   const Useremail = localStorage.getItem("email");
   const ChangesEMail = Useremail.replace("@", "").replace(".", "");
-  const crudId = "961178f64a1f41c9b001935e70605175";
+  const crudId = "5de3de5b8b5e4824bda9454d7fcc1104";
   const handleClick = async (title, price, image) => {
     value.addItems({
       title,
@@ -22,11 +25,21 @@ const SingleProduct = (props) => {
       quantity: 1,
     };
     try {
-      let res = await axios.post(
-        `https://crudcrud.com/api/${crudId}/${ChangesEMail}`,
+      await axios.post(
+        `https://e-commerce-1-55a40-default-rtdb.firebaseio.com/cart/${ChangesEMail}.json`,
         details
       );
-      console.log(res);
+
+      toast.success("ADDED TO CART", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       console.log("error:", error);
     }
@@ -59,6 +72,7 @@ const SingleProduct = (props) => {
         </Row>
       </Container>
       <Footer />
+      <ToastContainer />
     </>
   );
 };

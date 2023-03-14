@@ -20,9 +20,10 @@ const CartReducer = (state, action) => {
   }
 };
 
+let tokken = localStorage.getItem("token");
+
 export const CartContextProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
-  const userIsLoggesIn = !!token;
+  const [token, setToken] = useState(tokken || null);
   const [state, dispatchsetState] = useReducer(CartReducer, initialState);
   const addItemsToCart = (items) => {
     dispatchsetState({ type: "ADD", item: items });
@@ -34,6 +35,7 @@ export const CartContextProvider = ({ children }) => {
   };
   const logoutHandler = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("email");
     setToken(null);
   };
 
@@ -41,7 +43,6 @@ export const CartContextProvider = ({ children }) => {
     items: state.items,
     addItems: addItemsToCart,
     token: token,
-    isLoggedIn: userIsLoggesIn,
     login: loginHandler,
     logout: logoutHandler,
   };

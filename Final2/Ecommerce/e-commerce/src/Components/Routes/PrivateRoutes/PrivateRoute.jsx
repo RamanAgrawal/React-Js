@@ -7,8 +7,9 @@ const PrivateRoute = ({ children }) => {
   const isLoggesIn = ctx.token;
   if (!isLoggesIn) {
     return <Navigate to={"/login"}></Navigate>;
+  } else {
+    return children;
   }
-  return children;
 };
 
 export default PrivateRoute;

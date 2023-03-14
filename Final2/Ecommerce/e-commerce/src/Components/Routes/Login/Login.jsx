@@ -1,6 +1,8 @@
 import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router";
 import { CartContext } from "../../Store/CartContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const ctx = useContext(CartContext);
@@ -62,6 +64,7 @@ const Login = () => {
       let result = await res.json();
       ctx.login(result.idToken);
       localStorage.setItem("email", result.email);
+      toast("LOGIN SUCCESSFULLY");
       navigate("/products");
     } catch (error) {
       alert(error.message);
@@ -89,13 +92,8 @@ const Login = () => {
         <button>Sign Up</button>
       </form>
 
-      {/* ................................................. */}
-
       <br />
       <br />
-      <br />
-
-      {/* .................................................. */}
 
       <form onSubmit={handleLoginSubmit}>
         <h1>Login</h1>
@@ -115,6 +113,7 @@ const Login = () => {
         <br />
         <br />
       </form>
+      <ToastContainer />
     </>
   );
 };
