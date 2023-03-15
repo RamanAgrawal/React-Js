@@ -3,45 +3,54 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Cart.css";
-
 const Cart = () => {
   const Useremail = localStorage.getItem("email");
   const ChangesEMail = Useremail.replace("@", "").replace(".", "");
   const [cart, setCart] = useState([]);
   const [plus, setplus] = useState(0);
-  // const crudId = "5de3de5b8b5e4824bda9454d7fcc1104";
   const getData = async () => {
     let data = [];
+    class Data {
+      constructor(key, title, image, price, quantity) {
+        this.key = key;
+        this.title = title;
+        this.image = image;
+        this.price = price;
+        this.quantity = quantity;
+      }
+    }
     try {
       let res = await axios.get(
         `https://e-commerce-1-55a40-default-rtdb.firebaseio.com/cart/${ChangesEMail}.json`
       );
-      // setCart(res);
-      for (const values of Object.values(res.data)) {
-        data.push(values);
+      for (let key in res.data) {
+        let obj = new Data(
+          key,
+          res.data[key].title,
+          res.data[key].image,
+          res.data[key].price,
+          1
+        );
+        data.push(obj);
       }
       setCart(data);
     } catch (error) {
       console.log("error:", error);
     }
   };
-  console.log(cart);
 
   const total = cart.reduce((accumulator, curItem) => {
     return accumulator + curItem.quantity * curItem.price;
   }, 0);
 
   const handleRemove = async (id) => {
-    let data = [];
+    console.log(id);
     try {
       let res = await axios.delete(
-        `https://e-commerce-1-55a40-default-rtdb.firebaseio.com/cart/${ChangesEMail}/data.json`
+        `https://e-commerce-1-55a40-default-rtdb.firebaseio.com/cart/${ChangesEMail}/${id}.json`
       );
-      for (const values of Object.values(res.data)) {
-        console.log(values);
-      }
-      getData();
-      toast.success("Removed SUCCESSFULLY", {
+      console.log(res);
+      toast.success("Product Removed", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -51,16 +60,18 @@ const Cart = () => {
         progress: undefined,
         theme: "light",
       });
+      getData();
     } catch (error) {
       console.log("error:", error);
     }
   };
 
   const handleInc = (i) => {
+    console.log(i);
     setplus(plus + 1);
     setCart((data) =>
       data.map((items) =>
-        i === items._id
+        i === items.title
           ? {
               ...items,
               quantity: items.quantity + 1,
@@ -71,9 +82,10 @@ const Cart = () => {
   };
 
   const handleDec = (i) => {
+    console.log(i);
     setCart((data) =>
       data.map((items) =>
-        i === items._id
+        i === items.title
           ? {
               ...items,
               quantity:
@@ -105,17 +117,17 @@ const Cart = () => {
       )}
 
       <div className="cart">
-        {cart.map((items, i) => {
+        {cart.map((items) => {
           return (
-            <div key={items.title}>
-              <img src={items.title} alt="image" />
+            <div key={items.key}>
+              <img src={items.title}></img>
               <p>{items.image}</p>
-              <p>Price : {items.price * items.quantity} Rs</p>
+              <p>{items.price * items.quantity}</p>
               <div style={{ display: "flex", flexDirection: "row" }}>
-                <button onClick={() => handleInc(items._id)}>+</button>
-                <button onClick={() => handleDec(items._id)}>-</button>
+                <button onClick={() => handleInc(items.title)}>+</button>
+                <button onClick={() => handleDec(items.title)}>-</button>
               </div>
-              <button onClick={() => handleRemove(items._id)}>Remove</button>
+              <button onClick={() => handleRemove(items.key)}>Remove</button>
             </div>
           );
         })}

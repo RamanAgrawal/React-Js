@@ -12,7 +12,7 @@ const Products = (props) => {
             <div key={el.title}>
               <img src={el.imageUrl} alt="image" />
               <h4>{el.title}</h4>
-              <p>Price : {el.price}</p>
+              <p>Price : {el.price} Rs</p>
               <Link to={`/products/${el.id}`}>More Details</Link>
             </div>
           );

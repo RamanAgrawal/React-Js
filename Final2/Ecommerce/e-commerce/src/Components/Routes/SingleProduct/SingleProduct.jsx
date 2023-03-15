@@ -1,17 +1,20 @@
 import React, { useContext } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router";
-import { CartContext } from "../../Store/CartContext";
 import Footer from "../../Footer/Footer";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CartContext } from "../../Store/CartContext";
 
 const SingleProduct = (props) => {
+  const array = props.productsArr;
+  const { id } = useParams();
+  const product = array.find((p) => p.id === parseInt(id));
   const value = useContext(CartContext);
   const Useremail = localStorage.getItem("email");
   const ChangesEMail = Useremail.replace("@", "").replace(".", "");
-  const crudId = "5de3de5b8b5e4824bda9454d7fcc1104";
+
   const handleClick = async (title, price, image) => {
     value.addItems({
       title,
@@ -45,20 +48,16 @@ const SingleProduct = (props) => {
     }
   };
 
-  const array = props.productsArr;
-  const { id } = useParams();
-  const product = array.find((p) => p.id === parseInt(id));
-
   return (
     <>
       <Container style={{ height: "540px" }}>
         <Row>
           <Col md={6}>
-            <img src={product.imageUrl} alt="image" />
+            <img src={product.imageUrl} alt="image" width={"50%"} />
           </Col>
           <Col md={6}>
             <h2>{product.title}</h2>
-            <p>Price : {product.price}</p>
+            <p>Price : {product.price} Rs</p>
             <p>{product.description}</p>
             <Button
               onClick={() =>

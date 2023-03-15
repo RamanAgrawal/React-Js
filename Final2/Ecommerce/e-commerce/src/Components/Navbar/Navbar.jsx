@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -6,16 +6,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../Store/CartContext";
 import "./Navbar.css";
 
-function CollapsibleExample() {
+function CollapsibleExample(props) {
   const value = useContext(CartContext);
-  // const length = value.items.length;
   const navigate = useNavigate();
   const isLoggesIn = value.token;
   const handleLogout = () => {
     value.logout();
-    value.items.length = 0;
+    props.length = 0;
     navigate("/");
   };
+
   return (
     <Navbar bg="dark" variant="dark">
       <Container className="container">
@@ -40,7 +40,7 @@ function CollapsibleExample() {
           ) : (
             <Link to={"/login"}>Login</Link>
           )}
-          <Link to={"/cart"}>Cart</Link>
+          <Link to={"/cart"}>Cart </Link>
         </Nav>
       </Container>
     </Navbar>
