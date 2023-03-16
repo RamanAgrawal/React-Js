@@ -1,13 +1,20 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const Cart = () => {
+  const [cart, setCart] = useState([]);
+  console.log(cart);
   const getData = async () => {
+    let data = [];
     try {
       let res = await axios.get(
         "https://cart-d0ae1-default-rtdb.firebaseio.com/Cart.json"
       );
-      console.log(res);
+      for (let key in res.data) {
+        data.push(res.data[key]);
+      }
+
+      setCart(data);
     } catch (error) {
       console.log("error:", error);
     }
@@ -17,7 +24,26 @@ const Cart = () => {
     getData();
   }, []);
 
-  return <div>cart</div>;
+  return (
+    <div>
+      {cart.map((el) => {
+        return (
+          <div
+            key={el.name}
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <h4>{el.name}</h4>
+            <p>{el.des}</p>
+            <p>{el.price}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default Cart;

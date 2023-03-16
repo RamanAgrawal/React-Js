@@ -61,9 +61,8 @@ const Form = () => {
     setQuan("");
   };
 
-  const handleCart = async (id, name, des, price, quan) => {
+  const handleCart = async (name, des, price, quan) => {
     let obj = {
-      id,
       name,
       des,
       price,
@@ -119,13 +118,7 @@ const Form = () => {
             <p>Quantity : {items.quan}</p>
             <button
               onClick={() =>
-                handleCart(
-                  items._id,
-                  items.name,
-                  items.des,
-                  items.price,
-                  items.quan
-                )
+                handleCart(items.name, items.des, items.price, items.quan)
               }
             >
               Add To Cart
