@@ -7,6 +7,7 @@ const Form = () => {
   const [price, setPrice] = useState("");
   const [quan, setQuan] = useState("");
   const [data, setData] = useState([]);
+  const crudid = "b901673c8fce4cbbb9798d9e31a28cfe";
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -23,11 +24,8 @@ const Form = () => {
 
   const getData = async () => {
     try {
-      let res = await axios.get(
-        "https://crudcrud.com/api/3ad8280d5f4e4a0ab4cef935d1995b83/ADDED"
-      );
+      let res = await axios.get(`https://crudcrud.com/api/${crudid}/ADDED`);
       setData(res.data);
-      console.log(res);
     } catch (error) {
       console.log("error:", error);
     }
@@ -43,11 +41,11 @@ const Form = () => {
       name,
       des,
       price: `Rs ${price}`,
-      quan,
+      quan: Number(quan),
     };
     try {
       let res = await axios.post(
-        "https://crudcrud.com/api/3ad8280d5f4e4a0ab4cef935d1995b83/ADDED",
+        `https://crudcrud.com/api/${crudid}/ADDED`,
         details
       );
       getData();
@@ -61,19 +59,51 @@ const Form = () => {
     setQuan("");
   };
 
-  const handleCart = async (name, des, price, quan) => {
+  const handleCart = async (name, des, price, quan, items) => {
     let obj = {
       name,
       des,
       price,
-      quan: quan - 1,
+      quan,
     };
     try {
       let res = await axios.post(
         "https://cart-d0ae1-default-rtdb.firebaseio.com/Cart.json",
         obj
       );
+      alert("Medicine Added To Cart & Quantity Decreased");
+      getUpdate(items);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
+  async function getUpdate(items) {
+    console.log(items.des);
+    try {
+      let res = await axios.put(
+        `https://crudcrud.com/api/${crudid}/ADDED/${items._id}`,
+        {
+          name: items.name,
+          des: items.des,
+          price: items.price,
+          quan: items.quan - Number(1),
+        }
+      );
+      getData();
       console.log(res);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  }
+
+  const handleRemove = async (id) => {
+    try {
+      let res = await axios.delete(
+        `https://crudcrud.com/api/${crudid}/ADDED/${id}`
+      );
+      alert("Medicine Removed");
+      getData();
     } catch (error) {
       console.log("error:", error);
     }
@@ -118,11 +148,18 @@ const Form = () => {
             <p>Quantity : {items.quan}</p>
             <button
               onClick={() =>
-                handleCart(items.name, items.des, items.price, items.quan)
+                handleCart(
+                  items.name,
+                  items.des,
+                  items.price,
+                  items.quan,
+                  items
+                )
               }
             >
               Add To Cart
             </button>
+            <button onClick={() => handleRemove(items._id)}>Remove</button>
           </div>
         );
       })}

@@ -10,9 +10,9 @@ function CollapsibleExample(props) {
   const value = useContext(CartContext);
   const navigate = useNavigate();
   const isLoggesIn = value.token;
+  const email = localStorage.getItem("email");
   const handleLogout = () => {
     value.logout();
-    props.length = 0;
     navigate("/");
   };
 
@@ -40,8 +40,9 @@ function CollapsibleExample(props) {
           ) : (
             <Link to={"/login"}>Login</Link>
           )}
-          <Link to={"/cart"}>Cart </Link>
+          <Link to={"/cart"}>Cart</Link>
         </Nav>
+        {email && <p style={{ color: "white" }}>{email}</p>}
       </Container>
     </Navbar>
   );

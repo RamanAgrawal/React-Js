@@ -28,10 +28,11 @@ const SingleProduct = (props) => {
       quantity: 1,
     };
     try {
-      await axios.post(
+      let res = await axios.post(
         `https://e-commerce-1-55a40-default-rtdb.firebaseio.com/cart/${ChangesEMail}.json`,
         details
       );
+      console.log(res);
 
       toast.success("ADDED TO CART", {
         position: "top-center",

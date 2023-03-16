@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
-  console.log(cart);
   const getData = async () => {
     let data = [];
     try {
@@ -13,8 +12,8 @@ const Cart = () => {
       for (let key in res.data) {
         data.push(res.data[key]);
       }
-
       setCart(data);
+      console.log(res);
     } catch (error) {
       console.log("error:", error);
     }

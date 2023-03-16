@@ -7,7 +7,6 @@ import classes from "./AuthForm.module.css";
 const AuthForm = () => {
   const history = useHistory();
   const ctx = useContext(AuthContext);
-  console.log(ctx);
   const [isLogin, setIsLogin] = useState(true);
   const emailInput = useRef();
   const [isLoading, setIsLoading] = useState(false);

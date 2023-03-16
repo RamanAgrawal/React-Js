@@ -3,13 +3,18 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Cart.css";
-const Cart = () => {
+const Cart = (props) => {
   const Useremail = localStorage.getItem("email");
   const ChangesEMail = Useremail.replace("@", "").replace(".", "");
   const [cart, setCart] = useState([]);
   const [plus, setplus] = useState(0);
+  console.log(cart);
+
   const getData = async () => {
     let data = [];
+
+    // adding key as object
+
     class Data {
       constructor(key, title, image, price, quantity) {
         this.key = key;
@@ -39,9 +44,13 @@ const Cart = () => {
     }
   };
 
+  // Total Cart
+
   const total = cart.reduce((accumulator, curItem) => {
     return accumulator + curItem.quantity * curItem.price;
   }, 0);
+
+  // Removing Products
 
   const handleRemove = async (id) => {
     console.log(id);
@@ -66,6 +75,8 @@ const Cart = () => {
     }
   };
 
+  // Increment Button
+
   const handleInc = (i) => {
     console.log(i);
     setplus(plus + 1);
@@ -80,6 +91,8 @@ const Cart = () => {
       )
     );
   };
+
+  // // Decrement Button
 
   const handleDec = (i) => {
     console.log(i);
@@ -99,9 +112,13 @@ const Cart = () => {
     setplus(plus - 1);
   };
 
+  // Order Button
+
   const handleOrder = () => {
     alert(`Order Done Please pay ${total}`);
   };
+
+  // calling Function
 
   useEffect(() => {
     getData();
@@ -120,9 +137,9 @@ const Cart = () => {
         {cart.map((items) => {
           return (
             <div key={items.key}>
-              <img src={items.title}></img>
-              <p>{items.image}</p>
-              <p>{items.price * items.quantity}</p>
+              <img src={items.title} style={{ width: "30%" }}></img>
+              <h1>{items.image}</h1>
+              <p>{items.price * items.quantity} Rs</p>
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <button onClick={() => handleInc(items.title)}>+</button>
                 <button onClick={() => handleDec(items.title)}>-</button>

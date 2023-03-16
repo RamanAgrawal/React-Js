@@ -31,7 +31,7 @@ const AllROutes = (props) => {
         path="/cart"
         element={
           <PrivateRoute>
-            <Cart />
+            <Cart setlength={props.setlength} />
           </PrivateRoute>
         }
       />
