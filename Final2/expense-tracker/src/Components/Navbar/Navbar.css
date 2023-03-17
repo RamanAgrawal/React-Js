@@ -1,0 +1,35 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-family: cursive;
+  height: 70px;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  gap: 76px;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.links a:hover {
+  color: aqua;
+}
+
+input[type="submit"] {
+  background-color: black;
+  color: white;
+  font-family: cursive;
+  font-size: 22px;
+  display: block;
+  margin: auto;
+  width: 20%;
+}

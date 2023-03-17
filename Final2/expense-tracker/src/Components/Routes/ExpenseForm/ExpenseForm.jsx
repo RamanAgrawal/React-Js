@@ -51,6 +51,22 @@ const ExpenseForm = () => {
     }
   };
 
+  const handleEdit = async (id, email, description, categories) => {
+    formData.email = email;
+    formData.description = description;
+    formData.categories = categories;
+    console.log(formData.email);
+    try {
+      let res = await axios.put(
+        `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${id}.json`,
+        formData
+      );
+      console.log(res);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -99,7 +115,18 @@ const ExpenseForm = () => {
               <h1>{items.email}</h1>
               <h1>{items.description}</h1>
               <h1>{items.categories}</h1>
-              <button>Edit</button>
+              <button
+                onClick={() =>
+                  handleEdit(
+                    items.id,
+                    items.email,
+                    items.description,
+                    items.categories
+                  )
+                }
+              >
+                Edit
+              </button>
               <button onClick={() => handleDelete(items.id)}>Delete</button>
             </div>
           );
