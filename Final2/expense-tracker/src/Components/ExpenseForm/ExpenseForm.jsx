@@ -5,6 +5,7 @@ const ExpenseForm = () => {
   const [des, setDes] = useState("");
   const [cat, setCat] = useState("");
   const [data, setData] = useState([]);
+  console.log("data:", data);
 
   const handleAmount = (e) => {
     setAmount(e.target.value);
@@ -25,8 +26,9 @@ const ExpenseForm = () => {
       des,
       cat,
     };
-    setData(obj);
-    console.log(data);
+    setData((prev) => {
+      return [obj, ...prev];
+    });
   };
 
   return (
@@ -44,11 +46,12 @@ const ExpenseForm = () => {
           <option value="Food">Food</option>
           <option value="Petrol">Petrol</option>
           <option value="Salary">Salary</option>
+          <option value="other">Other</option>
         </select>
         <input onClick={handleAddExpense} type="submit" value={"ADD"} />
       </form>
       <div>
-        {addExpense.map((items) => {
+        {data.map((items) => {
           return (
             <div key={items.amount}>
               <h1>{items.amount}</h1>
