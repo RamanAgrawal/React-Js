@@ -1,37 +1,28 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+const inistate = {
+  email: "",
+  description: "",
+  categories: "",
+};
+
 const ExpenseForm = () => {
-  const [amount, setAmount] = useState("");
-  const [des, setDes] = useState("");
-  const [cat, setCat] = useState("");
+  const [formData, setFormData] = useState(inistate);
   const [data, setData] = useState([]);
-  // console.log("data:", data);
-
-  const handleAmount = (e) => {
-    setAmount(e.target.value);
+  const handleCHange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleDes = (e) => {
-    setDes(e.target.value);
-  };
-
-  const handleCat = (e) => {
-    setCat(e.target.value);
-  };
-
-  const handleAddExpense = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const obj = {
-      amount,
-      des,
-      cat,
-    };
     try {
       let res = await axios.post(
-        "https://expensetraker-93642-default-rtdb.firebaseio.com/expenses.json",
-        obj
+        "https://expensetraker-93642-default-rtdb.firebaseio.com/cart.json",
+        formData
       );
+      getData();
     } catch (error) {
       console.log("error:", error);
     }
@@ -40,9 +31,21 @@ const ExpenseForm = () => {
   const getData = async () => {
     try {
       let res = await axios.get(
-        "https://expensetraker-93642-default-rtdb.firebaseio.com/expenses.json"
+        "https://expensetraker-93642-default-rtdb.firebaseio.com/cart.json"
+      );
+      setData(res.data);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      let res = await axios.delete(
+        `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${id}.json`
       );
       console.log(res);
+      getData();
     } catch (error) {
       console.log("error:", error);
     }
@@ -52,35 +55,55 @@ const ExpenseForm = () => {
     getData();
   }, []);
 
+  let items = [];
+  for (let key in data) {
+    items.push({ id: key, ...data[key] });
+  }
+
   return (
     <>
-      <h1>Adding-Expense</h1>
-      <form>
-        <input onChange={handleAmount} type="text" placeholder="Enter Amount" />
+      <h1>Expense Form</h1>
+      <form onSubmit={handleSubmit}>
         <input
-          onChange={handleDes}
+          value={formData.email}
+          onChange={handleCHange}
+          name="email"
+          type="text"
+          placeholder="Enter Amount"
+        />
+        <input
+          value={formData.description}
+          onChange={handleCHange}
+          name="description"
           type="text"
           placeholder="Enter Description"
         />
-        <select onChange={handleCat}>
+        <select
+          value={formData.categories}
+          onChange={handleCHange}
+          name="categories"
+          id=""
+        >
           <option>Category</option>
           <option value="Food">Food</option>
           <option value="Petrol">Petrol</option>
-          <option value="Salary">Salary</option>
-          <option value="other">Other</option>
+          <option value="Salery">Salery</option>
+          <option value="Other">Other</option>
         </select>
-        <input onClick={handleAddExpense} type="submit" value={"ADD"} />
+        <input type="submit" value="Submit" />
       </form>
       <div>
-        {/* {data.map((items) => {
+        {items.map((items) => {
           return (
-            <div key={items.amount}>
-              <h1>{items.amount}</h1>
-              <p>{items.des}</p>
-              <p>{items.cat}</p>
+            <div key={items.id}>
+              <h1>{items.email}</h1>
+              <h1>{items.description}</h1>
+              <h1>{items.categories}</h1>
+              <button>Edit</button>
+              <button onClick={() => handleDelete(items.id)}>Delete</button>
             </div>
           );
-        })} */}
+        })}
       </div>
     </>
   );
