@@ -47,6 +47,11 @@ const Login = () => {
     }
   };
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+  };
+
   return (
     <>
       <h1>Sign In</h1>
@@ -63,6 +68,7 @@ const Login = () => {
           type="submit"
           value={"Confirm Email"}
         />
+        <input onClick={handleLogout} type="submit" value={"LogOut"} />
       </form>
     </>
   );
