@@ -44,8 +44,8 @@ const UpdateProfile = () => {
         }
       );
       console.log(res);
-      setName(res.data.users[0].displayName);
-      setUrl(res.data.users[0].photoUrl);
+      setName(res.data.users[0].displayName || "");
+      setUrl(res.data.users[0].photoUrl || "");
     } catch (error) {
       console.log("error:", error);
     }
