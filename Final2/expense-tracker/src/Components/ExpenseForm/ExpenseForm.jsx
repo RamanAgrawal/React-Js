@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const ExpenseForm = () => {
   const [amount, setAmount] = useState("");
   const [des, setDes] = useState("");
   const [cat, setCat] = useState("");
   const [data, setData] = useState([]);
-  console.log("data:", data);
+  // console.log("data:", data);
 
   const handleAmount = (e) => {
     setAmount(e.target.value);
@@ -19,17 +20,37 @@ const ExpenseForm = () => {
     setCat(e.target.value);
   };
 
-  const handleAddExpense = (e) => {
+  const handleAddExpense = async (e) => {
     e.preventDefault();
     const obj = {
       amount,
       des,
       cat,
     };
-    setData((prev) => {
-      return [obj, ...prev];
-    });
+    try {
+      let res = await axios.post(
+        "https://expensetraker-93642-default-rtdb.firebaseio.com/expenses.json",
+        obj
+      );
+    } catch (error) {
+      console.log("error:", error);
+    }
   };
+
+  const getData = async () => {
+    try {
+      let res = await axios.get(
+        "https://expensetraker-93642-default-rtdb.firebaseio.com/expenses.json"
+      );
+      console.log(res);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -51,7 +72,7 @@ const ExpenseForm = () => {
         <input onClick={handleAddExpense} type="submit" value={"ADD"} />
       </form>
       <div>
-        {data.map((items) => {
+        {/* {data.map((items) => {
           return (
             <div key={items.amount}>
               <h1>{items.amount}</h1>
@@ -59,7 +80,7 @@ const ExpenseForm = () => {
               <p>{items.cat}</p>
             </div>
           );
-        })}
+        })} */}
       </div>
     </>
   );
