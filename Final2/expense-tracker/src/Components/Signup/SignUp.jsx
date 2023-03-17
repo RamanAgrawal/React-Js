@@ -22,7 +22,7 @@ const SignUp = () => {
     e.preventDefault();
     if (email === "" || pass === "" || conPass === "") {
       alert("Please Fill All Fields");
-    } else if (conPass != pass) {
+    } else if (conPass !== pass) {
       alert("Password Not Matched");
     } else {
       try {

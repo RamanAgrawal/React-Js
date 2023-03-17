@@ -1,4 +1,5 @@
 import "./App.css";
+import ExpenseForm from "./Components/ExpenseForm/ExpenseForm";
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/Signup/SignUp";
@@ -11,6 +12,7 @@ function App() {
       <Login />
       <UpdateProfile />
       <ForgotPassword />
+      <ExpenseForm />
     </div>
   );
 }
