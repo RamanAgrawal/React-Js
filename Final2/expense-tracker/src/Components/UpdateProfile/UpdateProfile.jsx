@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const UpdateProfile = () => {
   const [name, setName] = useState("");
@@ -35,12 +35,42 @@ const UpdateProfile = () => {
     }
   };
 
+  async function getData() {
+    try {
+      let res = await axios.post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCFrmedDfSLLubh6dopFm8w_kt-t0eGWRA",
+        {
+          idToken: JSON.parse(localStorage.getItem("token")),
+        }
+      );
+      console.log(res);
+      setName(res.data.users[0].displayName);
+      setUrl(res.data.users[0].photoUrl);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <h1>Update Profile</h1>
       <form>
-        <input onChange={handleName} type="text" placeholder="Full Name" />
-        <input onChange={handleUrl} type="text" placeholder="Profile URL" />
+        <input
+          value={name}
+          onChange={handleName}
+          type="text"
+          placeholder="Full Name"
+        />
+        <input
+          value={url}
+          onChange={handleUrl}
+          type="text"
+          placeholder="Profile URL"
+        />
         <input onClick={handleSubmit} type="submit" value={"Update"} />
       </form>
     </>
