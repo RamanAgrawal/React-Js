@@ -1,28 +1,52 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-
-const inistate = {
-  email: "",
-  description: "",
-  categories: "",
-};
+import React, { useEffect, useRef, useState } from "react";
+import Table from "react-bootstrap/Table";
+import "./Expenses.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ExpenseForm = () => {
-  const [formData, setFormData] = useState(inistate);
+  const email = useRef();
+  const des = useRef();
+  const categories = useRef();
   const [data, setData] = useState([]);
-  const handleCHange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await axios.post(
-        "https://expensetraker-93642-default-rtdb.firebaseio.com/cart.json",
-        formData
-      );
-      getData();
+      if (
+        email.current.value === "" ||
+        des.current.value === "" ||
+        categories.current.value === "Category"
+      ) {
+        alert("Please fill All");
+      } else {
+        let res = await axios.post(
+          "https://expensetraker-93642-default-rtdb.firebaseio.com/cart.json",
+          {
+            amount: email.current.value,
+            description: des.current.value,
+            categories: categories.current.value,
+          }
+        );
+        setData(res.data);
+        getData();
+        if (res.status === 200) {
+          email.current.value = "";
+          des.current.value = "";
+          categories.current.value = "Category";
+        }
+        toast.success("EXPENSE--ADDED", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     } catch (error) {
       console.log("error:", error);
     }
@@ -34,6 +58,7 @@ const ExpenseForm = () => {
         "https://expensetraker-93642-default-rtdb.firebaseio.com/cart.json"
       );
       setData(res.data);
+      console.log(res);
     } catch (error) {
       console.log("error:", error);
     }
@@ -44,26 +69,44 @@ const ExpenseForm = () => {
       let res = await axios.delete(
         `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${id}.json`
       );
-      console.log(res);
+      toast.success("EXPENSE--DELETED", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       getData();
     } catch (error) {
       console.log("error:", error);
     }
   };
 
-  const handleEdit = async (id, email, description, categories) => {
-    formData.email = email;
-    formData.description = description;
-    formData.categories = categories;
-    console.log(formData.email);
-    try {
-      let res = await axios.put(
-        `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${id}.json`,
-        formData
-      );
-      console.log(res);
-    } catch (error) {
-      console.log("error:", error);
+  const handleEdit = async (id, amount, description, categorie) => {
+    email.current.value = amount;
+    des.current.value = description;
+    categories.current.value = categorie;
+    if (
+      email.current.value === amount ||
+      des.current.value === description ||
+      categories.current.value === categorie
+    ) {
+    } else {
+      try {
+        let res = await axios.put(
+          `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${id}.json`,
+          {
+            amount: email.current.value,
+            description: des.current.value,
+            categories: categories.current.value,
+          }
+        );
+      } catch (error) {
+        console.log("error:", error);
+      }
     }
   };
 
@@ -73,33 +116,34 @@ const ExpenseForm = () => {
 
   let items = [];
   for (let key in data) {
-    items.push({ id: key, ...data[key] });
+    const obj = {
+      id: key,
+      ...data[key],
+    };
+    items.push(obj);
   }
+
+  const total = items.reduce((accumulator, curItem) => {
+    return Number(curItem.amount) + accumulator;
+  }, 0);
 
   return (
     <>
       <h1>Expense Form</h1>
       <form onSubmit={handleSubmit}>
         <input
-          value={formData.email}
-          onChange={handleCHange}
+          ref={email}
           name="email"
-          type="text"
+          type="number"
           placeholder="Enter Amount"
         />
         <input
-          value={formData.description}
-          onChange={handleCHange}
+          ref={des}
           name="description"
           type="text"
           placeholder="Enter Description"
         />
-        <select
-          value={formData.categories}
-          onChange={handleCHange}
-          name="categories"
-          id=""
-        >
+        <select ref={categories} name="categories" id="">
           <option>Category</option>
           <option value="Food">Food</option>
           <option value="Petrol">Petrol</option>
@@ -108,30 +152,58 @@ const ExpenseForm = () => {
         </select>
         <input type="submit" value="Submit" />
       </form>
+      <br />
+      <br />
+      <br />
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <h3>Total Expenses : {total}</h3>
+        {total > 10000 && <button className="btns">Activate Premium</button>}
+      </div>
+      <table className="top-table" border={"0"} cellSpacing={"0"}>
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Delete Expense</th>
+            <th>Edit Expense</th>
+          </tr>
+        </thead>
+      </table>
       <div>
         {items.map((items) => {
           return (
-            <div key={items.id}>
-              <h1>{items.email}</h1>
-              <h1>{items.description}</h1>
-              <h1>{items.categories}</h1>
-              <button
-                onClick={() =>
-                  handleEdit(
-                    items.id,
-                    items.email,
-                    items.description,
-                    items.categories
-                  )
-                }
-              >
-                Edit
-              </button>
-              <button onClick={() => handleDelete(items.id)}>Delete</button>
+            <div key={items.id} className="expenses">
+              <Table striped bordered hover border={"0"} cellSpacing={"0"}>
+                <tbody>
+                  <tr className="details-expenses">
+                    <td>{items.amount}</td>
+                    <td>{items.description}</td>
+                    <td>{items.categories}</td>
+                    <td className="btns" onClick={() => handleDelete(items.id)}>
+                      Delete
+                    </td>
+                    <td
+                      className="btns"
+                      onClick={() =>
+                        handleEdit(
+                          items.id,
+                          items.amount,
+                          items.description,
+                          items.categories
+                        )
+                      }
+                    >
+                      Edit
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             </div>
           );
         })}
       </div>
+      <ToastContainer />
     </>
   );
 };

@@ -1,9 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Navigate, useNavigate } from "react-router";
+import { UserLogin } from "../../Redux/Auth.actions";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [email, setEMail] = useState("");
   const [pass, setPass] = useState("");
+
   const handleEMail = (e) => {
     setEMail(e.target.value);
   };
@@ -15,19 +20,7 @@ const Login = () => {
     if (email === "" || pass === "") {
       alert("Please Fill All Fields");
     } else {
-      try {
-        let res = await axios.post(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCFrmedDfSLLubh6dopFm8w_kt-t0eGWRA",
-          {
-            email: email,
-            password: pass,
-            returnSecureToken: true,
-          }
-        );
-        localStorage.setItem("token", JSON.stringify(res.data.idToken));
-      } catch (error) {
-        console.log("error:", error);
-      }
+      dispatch(UserLogin(email, pass));
     }
   };
 
@@ -47,11 +40,6 @@ const Login = () => {
     }
   };
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
-  };
-
   return (
     <>
       <h1>Sign In</h1>
@@ -68,7 +56,6 @@ const Login = () => {
           type="submit"
           value={"Confirm Email"}
         />
-        <input onClick={handleLogout} type="submit" value={"LogOut"} />
       </form>
     </>
   );

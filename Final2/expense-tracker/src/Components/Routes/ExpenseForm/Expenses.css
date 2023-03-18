@@ -1,0 +1,34 @@
+.expenses {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+table {
+  width: 70%;
+  margin: 1% auto;
+}
+.top-table tr {
+  display: flex;
+  margin: 3% auto;
+  justify-content: center;
+  align-items: center;
+  gap: 110px;
+  font-size: 22px;
+}
+.details-expenses {
+  display: flex;
+  gap: 165px;
+  margin-left: 45px;
+  font-size: 19px;
+}
+
+.btns {
+  background-color: black;
+  padding: 5px 12px;
+  color: white;
+}
+
+.btns:hover {
+  cursor: pointer;
+}
