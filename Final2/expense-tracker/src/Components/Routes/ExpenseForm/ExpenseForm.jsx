@@ -1,15 +1,17 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Table from "react-bootstrap/Table";
 import "./Expenses.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ThemeContext } from "../../Context/Theme";
 
 const ExpenseForm = () => {
   const email = useRef();
   const des = useRef();
   const categories = useRef();
   const [data, setData] = useState([]);
+  const value = useContext(ThemeContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -157,7 +159,11 @@ const ExpenseForm = () => {
       <br />
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <h3>Total Expenses : {total}</h3>
-        {total > 10000 && <button className="btns">Activate Premium</button>}
+        {total >= 10000 && (
+          <button onClick={value.handleTheme} className="btns">
+            Activate Premium
+          </button>
+        )}
       </div>
       <table className="top-table" border={"0"} cellSpacing={"0"}>
         <thead>
