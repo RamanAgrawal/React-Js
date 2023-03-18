@@ -5,19 +5,27 @@ const initialState = {
 };
 
 const CounterReducer = (state = initialState, action) => {
-  return {
-    counter: state.counter + 1,
-  };
+  if (action.type === "Increment") {
+    return {
+      counter: state.counter + 2,
+    };
+  }
+  if (action.type === "Decrement") {
+    return {
+      counter: state.counter - 2,
+    };
+  }
+  return state;
 };
 
-const rootReducer = redux.combineReducers({
-  counter: CounterReducer,
-});
-
-const store = redux.legacy_createStore(rootReducer);
+const store = redux.createStore(CounterReducer);
 
 const conterSubscriber = () => {
   const latestState = store.getState();
+  console.log(latestState);
 };
 
 store.subscribe(conterSubscriber);
+
+store.dispatch({ type: "Increment" });
+store.dispatch({ type: "Decrement" });
