@@ -10,8 +10,12 @@ const ExpenseForm = () => {
   const email = useRef();
   const des = useRef();
   const categories = useRef();
+  const id = useRef();
   const [data, setData] = useState([]);
+  const [show, seShow] = useState(false);
   const value = useContext(ThemeContext);
+  const Useremail = localStorage.getItem("emailId");
+  const ChangesEMail = Useremail.replace("@", "").replace(".", "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +28,7 @@ const ExpenseForm = () => {
         alert("Please fill All");
       } else {
         let res = await axios.post(
-          "https://expensetraker-93642-default-rtdb.firebaseio.com/cart.json",
+          `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${ChangesEMail}.json`,
           {
             amount: email.current.value,
             description: des.current.value,
@@ -57,10 +61,9 @@ const ExpenseForm = () => {
   const getData = async () => {
     try {
       let res = await axios.get(
-        "https://expensetraker-93642-default-rtdb.firebaseio.com/cart.json"
+        `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${ChangesEMail}.json`
       );
       setData(res.data);
-      console.log(res);
     } catch (error) {
       console.log("error:", error);
     }
@@ -69,7 +72,7 @@ const ExpenseForm = () => {
   const handleDelete = async (id) => {
     try {
       let res = await axios.delete(
-        `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${id}.json`
+        `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${ChangesEMail}/${id}.json`
       );
       toast.success("EXPENSE--DELETED", {
         position: "top-right",
@@ -96,19 +99,24 @@ const ExpenseForm = () => {
       des.current.value === description ||
       categories.current.value === categorie
     ) {
-    } else {
-      try {
-        let res = await axios.put(
-          `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${id}.json`,
-          {
-            amount: email.current.value,
-            description: des.current.value,
-            categories: categories.current.value,
-          }
-        );
-      } catch (error) {
-        console.log("error:", error);
-      }
+    }
+    seShow(!show);
+    handleDone(id);
+  };
+
+  const handleDone = async (id) => {
+    try {
+      let res = await axios.put(
+        `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${id}.json`,
+        {
+          amount: email.current.value,
+          description: des.current.value,
+          categories: categories.current.value,
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log("error:", error);
     }
   };
 
@@ -153,6 +161,11 @@ const ExpenseForm = () => {
           <option value="Other">Other</option>
         </select>
         <input type="submit" value="Submit" />
+        {show && (
+          <button className="btns" onClick={handleDone}>
+            Done
+          </button>
+        )}
       </form>
       <br />
       <br />
@@ -193,7 +206,7 @@ const ExpenseForm = () => {
                       className="btns"
                       onClick={() =>
                         handleEdit(
-                          items.id,
+                          id.current.value(id),
                           items.amount,
                           items.description,
                           items.categories

@@ -7,7 +7,7 @@ const Form = () => {
   const [price, setPrice] = useState("");
   const [quan, setQuan] = useState("");
   const [data, setData] = useState([]);
-  const crudid = "b901673c8fce4cbbb9798d9e31a28cfe";
+  const crudid = "9a5abc2e2ce646219bd54f66b8003336";
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -49,6 +49,7 @@ const Form = () => {
         details
       );
       getData();
+      console.log(res);
     } catch (error) {
       console.log("error:", error);
     }

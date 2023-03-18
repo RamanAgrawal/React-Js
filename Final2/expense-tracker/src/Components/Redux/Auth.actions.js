@@ -16,8 +16,10 @@ export const UserLogin = (email, password) => async (dispatch) => {
         returnSecureToken: true,
       }
     );
+    console.log(res);
     dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data.idToken });
     localStorage.setItem("token", JSON.stringify(res.data.idToken));
+    localStorage.setItem("emailId", JSON.stringify(res.data.email));
   } catch (error) {
     alert("Login Failed");
     dispatch({ type: USER_LOGIN_ERROR });

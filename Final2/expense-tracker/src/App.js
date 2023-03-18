@@ -6,21 +6,21 @@ import Navbar from "./Components/Navbar/Navbar";
 
 function App() {
   const value = useContext(ThemeContext);
-  console.log(value);
+
   const style = {
     light: {
       color: "black",
       background: "white",
     },
     dark: {
-      color: "black",
-      background: "aqua",
+      color: "white",
+      background: "black",
     },
   };
   return (
     <div
       className="App"
-      style={value.theme === "dark" ? style.dark : style.light}
+      style={value.theme === "dark" ? style.light : style.dark}
     >
       <Navbar />
       <AllRotes />

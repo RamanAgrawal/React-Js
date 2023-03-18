@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const UpdateProfile = () => {
   const [name, setName] = useState("");
@@ -28,6 +29,16 @@ const UpdateProfile = () => {
             returnSecureToken: true,
           }
         );
+        toast.success("Profile--Updated", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         console.log(res);
       } catch (error) {
         console.log("error:", error);
@@ -46,10 +57,37 @@ const UpdateProfile = () => {
       console.log(res);
       setName(res.data.users[0].displayName || "");
       setUrl(res.data.users[0].photoUrl || "");
+      localStorage.setItem("photo", JSON.stringify(res.data.users[0].photoUrl));
     } catch (error) {
       console.log("error:", error);
     }
   }
+
+  const handleConfirmEmail = async (e) => {
+    e.preventDefault();
+    try {
+      let res = await axios.post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCFrmedDfSLLubh6dopFm8w_kt-t0eGWRA",
+        {
+          requestType: "VERIFY_EMAIL",
+          idToken: JSON.parse(localStorage.getItem("token")),
+        }
+      );
+      toast.success("Mail--Sent", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(res);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
 
   useEffect(() => {
     getData();
@@ -72,7 +110,13 @@ const UpdateProfile = () => {
           placeholder="Profile URL"
         />
         <input onClick={handleSubmit} type="submit" value={"Update"} />
+        <input
+          onClick={handleConfirmEmail}
+          type="submit"
+          value={"Confirm Email"}
+        />
       </form>
+      <ToastContainer />
     </>
   );
 };

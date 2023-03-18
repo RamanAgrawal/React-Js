@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,16 @@ const ForgotPassword = () => {
           email: email,
         }
       );
+      toast.success("Mail--Sent", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       console.log(res);
     } catch (error) {
       console.log("error:", error);
@@ -39,6 +50,7 @@ const ForgotPassword = () => {
           value="Forgot Password"
         />
       </form>
+      <ToastContainer />
     </>
   );
 };

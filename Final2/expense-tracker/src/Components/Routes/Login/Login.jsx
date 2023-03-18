@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
 import { UserLogin } from "../../Redux/Auth.actions";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEMail] = useState("");
   const [pass, setPass] = useState("");
+  const navigate = useNavigate();
 
   const handleEMail = (e) => {
     setEMail(e.target.value);
@@ -17,26 +19,39 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      let res = await axios.post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCFrmedDfSLLubh6dopFm8w_kt-t0eGWRA",
+        {
+          email: email,
+          password: pass,
+          returnSecureToken: true,
+        }
+      );
+      console.log(res);
+      localStorage.setItem("token", JSON.stringify(res.data.idToken));
+      localStorage.setItem("emailId", JSON.stringify(res.data.email));
+      navigate("/");
+      toast.success("Logged-In", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      alert("Login Failed");
+      console.log("error:", error);
+    }
+
     if (email === "" || pass === "") {
       alert("Please Fill All Fields");
     } else {
       dispatch(UserLogin(email, pass));
-    }
-  };
-
-  const handleConfirmEmail = async (e) => {
-    e.preventDefault();
-    try {
-      let res = await axios.post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCFrmedDfSLLubh6dopFm8w_kt-t0eGWRA",
-        {
-          requestType: "VERIFY_EMAIL",
-          idToken: JSON.parse(localStorage.getItem("token")),
-        }
-      );
-      console.log(res);
-    } catch (error) {
-      console.log("error:", error);
     }
   };
 
@@ -51,12 +66,8 @@ const Login = () => {
           placeholder="Enter Password"
         />
         <input onClick={handleSubmit} type="submit" value={"Login"} />
-        <input
-          onClick={handleConfirmEmail}
-          type="submit"
-          value={"Confirm Email"}
-        />
       </form>
+      <ToastContainer />
     </>
   );
 };
