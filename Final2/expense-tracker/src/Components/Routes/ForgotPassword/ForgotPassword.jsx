@@ -33,6 +33,7 @@ const ForgotPassword = () => {
     } catch (error) {
       console.log("error:", error);
     }
+    email("");
   };
 
   return (

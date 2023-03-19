@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 const UpdateProfile = () => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -20,6 +21,7 @@ const UpdateProfile = () => {
       alert("Please Fill All Fields");
     } else {
       try {
+        setLoading(true);
         let res = await axios.post(
           "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCFrmedDfSLLubh6dopFm8w_kt-t0eGWRA",
           {
@@ -29,6 +31,7 @@ const UpdateProfile = () => {
             returnSecureToken: true,
           }
         );
+        setLoading(false);
         toast.success("Profile--Updated", {
           position: "top-right",
           autoClose: 5000,
@@ -41,6 +44,7 @@ const UpdateProfile = () => {
         });
         console.log(res);
       } catch (error) {
+        setLoading(false);
         console.log("error:", error);
       }
     }
@@ -48,17 +52,20 @@ const UpdateProfile = () => {
 
   async function getData() {
     try {
+      setLoading(true);
       let res = await axios.post(
         "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCFrmedDfSLLubh6dopFm8w_kt-t0eGWRA",
         {
           idToken: JSON.parse(localStorage.getItem("token")),
         }
       );
+      setLoading(false);
       console.log(res);
       setName(res.data.users[0].displayName || "");
       setUrl(res.data.users[0].photoUrl || "");
       localStorage.setItem("photo", JSON.stringify(res.data.users[0].photoUrl));
     } catch (error) {
+      setLoading(false);
       console.log("error:", error);
     }
   }
@@ -92,6 +99,15 @@ const UpdateProfile = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  if (loading) {
+    return (
+      <img
+        src="https://media.tenor.com/1s1_eaP6BvgAAAAC/rainbow-spinner-loading.gif"
+        alt="image"
+      ></img>
+    );
+  }
 
   return (
     <>

@@ -12,6 +12,7 @@ const ExpenseForm = () => {
   const categories = useRef();
   const id = useRef();
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [show, seShow] = useState(false);
   const value = useContext(ThemeContext);
   const Useremail = localStorage.getItem("emailId");
@@ -20,6 +21,7 @@ const ExpenseForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       if (
         email.current.value === "" ||
         des.current.value === "" ||
@@ -35,6 +37,7 @@ const ExpenseForm = () => {
             categories: categories.current.value,
           }
         );
+        setLoading(false);
         setData(res.data);
         getData();
         if (res.status === 200) {
@@ -54,23 +57,28 @@ const ExpenseForm = () => {
         });
       }
     } catch (error) {
+      setLoading(false);
       console.log("error:", error);
     }
   };
 
   const getData = async () => {
     try {
+      setLoading(true);
       let res = await axios.get(
         `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${ChangesEMail}.json`
       );
       setData(res.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log("error:", error);
     }
   };
 
   const handleDelete = async (id) => {
     try {
+      setLoading(true);
       let res = await axios.delete(
         `https://expensetraker-93642-default-rtdb.firebaseio.com/cart/${ChangesEMail}/${id}.json`
       );
@@ -84,8 +92,10 @@ const ExpenseForm = () => {
         progress: undefined,
         theme: "light",
       });
+      setLoading(false);
       getData();
     } catch (error) {
+      setLoading(false);
       console.log("error:", error);
     }
   };
@@ -136,6 +146,15 @@ const ExpenseForm = () => {
   const total = items.reduce((accumulator, curItem) => {
     return Number(curItem.amount) + accumulator;
   }, 0);
+
+  if (loading) {
+    return (
+      <img
+        src="https://media.tenor.com/1s1_eaP6BvgAAAAC/rainbow-spinner-loading.gif"
+        alt="image"
+      ></img>
+    );
+  }
 
   return (
     <>

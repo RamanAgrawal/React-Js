@@ -11,7 +11,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("emailId");
     localStorage.removeItem("photo");
-    navigate("/Login");
+    navigate("/");
     toast.success("Logged-Out", {
       position: "top-right",
       autoClose: 5000,

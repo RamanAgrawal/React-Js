@@ -7,6 +7,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [conPass, setConPass] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleEMail = (e) => {
     setEmail(e.target.value);
@@ -28,6 +29,7 @@ const SignUp = () => {
       alert("Password Not Matched");
     } else {
       try {
+        setLoading(true);
         let res = await axios.post(
           "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCFrmedDfSLLubh6dopFm8w_kt-t0eGWRA",
           {
@@ -36,6 +38,7 @@ const SignUp = () => {
             returnSecureToken: true,
           }
         );
+        setLoading(false);
         console.log(res);
         toast.success("Sign-In-Completed", {
           position: "top-right",
@@ -48,6 +51,7 @@ const SignUp = () => {
           theme: "light",
         });
       } catch (error) {
+        setLoading(false);
         console.log("error:", error);
       }
     }
