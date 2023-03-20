@@ -37,6 +37,10 @@ input[type="submit"]:hover {
   font-family: cursive;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .btns:hover {
   color: aqua;
   cursor: pointer;
