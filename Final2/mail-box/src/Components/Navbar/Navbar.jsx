@@ -10,10 +10,6 @@ const Navbar = () => {
   const email = useSelector((store) => {
     return store.auth.email;
   });
-  const store = useSelector((store) => {
-    return store;
-  });
-  console.log("store:", store);
 
   const token = useSelector((store) => {
     return store.auth.token;

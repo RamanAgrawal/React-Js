@@ -22,7 +22,7 @@ const Inbox = () => {
         `https://mail-box-4b435-default-rtdb.firebaseio.com/${newEmail}/inbox.json`
       );
       if (res.data) {
-        dispatch(mailAction.mailInbox(res.data));
+        dispatch(mailAction.inbox(res.data));
       }
       setLoading(false);
     } catch (error) {
@@ -33,10 +33,11 @@ const Inbox = () => {
 
   const handleDelete = async (id) => {
     console.log(id);
+    console.log(newEmail);
     dispatch(mailAction.delete(id));
     try {
       let res = await axios.delete(
-        `https://mail-box-client-4b607-default-rtdb.firebaseio.com/${newEmail}/inbox/${id}.json`
+        `https://mail-box-4b435-default-rtdb.firebaseio.com/${newEmail}/inbox/${id}.json`
       );
       console.log(res);
       toast.success("Mail-Deleted", {
@@ -57,8 +58,6 @@ const Inbox = () => {
   useEffect(() => {
     getData();
   }, []);
-
-  console.log(inbox);
 
   if (loading) {
     return (
@@ -94,10 +93,10 @@ const Inbox = () => {
                 className="delete"
                 onClick={() => handleDelete(items)}
               />
-              <p style={{ display: "flex", gap: "10px" }}>
-                <p>{!inbox[items].read && <p>💎</p>}</p>
+              <h4 style={{ display: "flex", gap: "10px" }}>
+                <p>{!inbox[items].read && <>💎</>}</p>
                 <p> From : {inbox[items].from}</p>
-              </p>
+              </h4>
               <div style={{ display: "flex", gap: "10px" }}>
                 <p>Message : </p>
                 <p dangerouslySetInnerHTML={{ __html: inbox[items].body }}></p>
