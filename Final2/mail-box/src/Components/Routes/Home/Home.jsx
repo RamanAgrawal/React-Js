@@ -7,10 +7,12 @@ const Home = () => {
         textAlign: "center",
         margin: "15%",
         fontFamily: "cursive",
-        fontSize: "27px",
+        fontSize: "77px",
         color: "GrayText",
       }}
-    ></div>
+    >
+      Welcome to your mail box
+    </div>
   );
 };
 
