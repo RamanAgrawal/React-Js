@@ -21,7 +21,7 @@ const authSlice = createSlice({
     },
   },
 });
-console.log(authSlice.getInitialState());
+// console.log(authSlice.getInitialState());
 
 export default authSlice.reducer;
 export const Authactions = authSlice.actions;
