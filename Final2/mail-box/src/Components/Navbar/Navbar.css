@@ -1,0 +1,22 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.Navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: cursive;
+  background-color: black;
+  color: white;
+  height: 70px;
+}
+.Navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 22px;
+}
+
+.Navbar a:hover {
+  color: aqua;
+}
