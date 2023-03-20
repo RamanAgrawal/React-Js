@@ -77,3 +77,26 @@ label:hover {
   color: aqua;
   cursor: pointer;
 }
+.inbox-items {
+  display: flex;
+  justify-content: right;
+  background-color: black;
+  color: white;
+  width: 90%;
+  margin: 10px auto;
+  padding: 20px;
+  font-size: 22px;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.inbox-items:hover {
+  cursor: pointer;
+  background-color: beige;
+  color: black;
+}
+
+.delete {
+  margin-right: -100%;
+}
