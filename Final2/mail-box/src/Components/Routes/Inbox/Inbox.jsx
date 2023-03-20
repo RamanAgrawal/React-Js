@@ -1,21 +1,31 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { mailAction } from "../../Store/MailSlice";
 
 const Inbox = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const inbox = useSelector((store) => {
+    return store.mail.inbox;
+  });
   const email = useSelector((store) => {
     return store.auth.email;
   });
   const newEmail = email.replace("@", "").replace(".", "");
   const getData = async () => {
     try {
+      setLoading(true);
       let res = await axios.get(
         `https://mail-box-4b435-default-rtdb.firebaseio.com/${newEmail}/inbox.json`
       );
-      setData(res.data);
+      if (res.data) {
+        dispatch(mailAction.mailInbox(res.data));
+      }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log("error:", error);
     }
   };
@@ -24,10 +34,7 @@ const Inbox = () => {
     getData();
   }, []);
 
-  let items = [];
-  for (let key in data) {
-    items.push({ id: key, ...data[key] });
-  }
+  console.log(inbox);
 
   if (loading) {
     return (
@@ -40,17 +47,28 @@ const Inbox = () => {
     );
   }
 
-  console.log(items);
+  let unread = 0;
+  Object.keys(inbox).forEach((items) => {
+    if (inbox[items].read === false) {
+      unread++;
+    }
+  });
 
   return (
     <div>
-      <h1>Your Inbox</h1>
+      <h1>Your Inbox has {unread} Unread Email's 😥</h1>
       <div>
-        {items.map((inbox) => {
+        {Object.keys(inbox).length === 0 ? <p>Your Inbox Is Empty 😢</p> : ""}
+      </div>
+      <div>
+        {Object.keys(inbox).map((items) => {
           return (
-            <div key={inbox.id}>
-              <h1>{inbox.from}</h1>
-              <p dangerouslySetInnerHTML={{ __html: inbox.body }}></p>
+            <div>
+              <h1>
+                {!inbox[items].read && <p>💎</p>}
+                <p>{inbox[items].from}</p>
+              </h1>
+              <p dangerouslySetInnerHTML={{ __html: inbox[items].body }} />
             </div>
           );
         })}

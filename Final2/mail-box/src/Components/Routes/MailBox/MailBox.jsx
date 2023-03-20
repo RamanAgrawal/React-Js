@@ -1,14 +1,16 @@
 import React, { useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { mailAction } from "../../Store/MailSlice";
 const MailBox = () => {
   const to = useRef();
   const area = useRef();
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const email = useSelector((store) => {
     return store.auth.email;
   });
@@ -27,7 +29,12 @@ const MailBox = () => {
         `https://mail-box-4b435-default-rtdb.firebaseio.com/${fromMail}/sent.json`,
         obj
       );
-      setLoading(false);
+      dispatch(
+        mailAction.mailSent({
+          id: res.data.name,
+          mail: { to: toEmail, body: toArea },
+        })
+      );
       toast.success("Mail-Sent", {
         position: "top-right",
         autoClose: 5000,
@@ -46,6 +53,7 @@ const MailBox = () => {
     const obj2 = {
       from: email,
       body: toArea,
+      read: false,
     };
 
     try {
@@ -92,11 +100,11 @@ const MailBox = () => {
         >
           Compose
         </button>
-        {!show && <h1>Click On Compose To Send EMail's 💌</h1>}
+        {!show && <h1>Click On Compose To Send Email's 💌</h1>}
         {show && (
           <div>
-            <h1 style={{ color: "Blue" }}>
-              Connect With Your Friends And Family
+            <h1 style={{ color: "grey" }}>
+              Connect With Your Friends And Family 👪
             </h1>
             <div className="mail">
               <div>
