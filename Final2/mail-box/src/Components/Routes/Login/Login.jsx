@@ -76,6 +76,7 @@ const Login = () => {
   return (
     <>
       <form>
+        <h1>Login</h1>
         <input ref={email} type="text" placeholder="Enter Your Email" />
         <input
           ref={password}

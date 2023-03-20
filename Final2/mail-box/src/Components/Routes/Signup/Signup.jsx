@@ -70,6 +70,7 @@ const Signup = () => {
 
   return (
     <>
+      <h1>Sign Up</h1>
       <form>
         <input ref={email} type="email" placeholder="Enter Your Email" />
         <input
