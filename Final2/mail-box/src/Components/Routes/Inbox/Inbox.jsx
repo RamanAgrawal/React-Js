@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { mailAction } from "../../Store/MailSlice";
 import { AiFillDelete } from "react-icons/ai";
 import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 const Inbox = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,8 +33,6 @@ const Inbox = () => {
   };
 
   const handleDelete = async (id) => {
-    console.log(id);
-    console.log(newEmail);
     dispatch(mailAction.delete(id));
     try {
       let res = await axios.delete(
@@ -90,6 +89,7 @@ const Inbox = () => {
           return (
             <div key={items} className="inbox-items">
               <AiFillDelete
+                color="red"
                 className="delete"
                 onClick={() => handleDelete(items)}
               />
@@ -101,6 +101,9 @@ const Inbox = () => {
                 <p>Message : </p>
                 <p dangerouslySetInnerHTML={{ __html: inbox[items].body }}></p>
               </div>
+              <Link className="read" to={`/inbox/${items}`}>
+                Read Mail
+              </Link>
             </div>
           );
         })}

@@ -88,10 +88,12 @@ label:hover {
   font-size: 22px;
   align-items: center;
   flex-direction: column;
+  gap: 10px;
   border-radius: 20px;
 }
 
-.inbox-items:hover {
+.inbox-items:hover,
+.read:hover {
   cursor: pointer;
   background-color: beige;
   color: black;
@@ -99,4 +101,10 @@ label:hover {
 
 .delete {
   margin-right: -100%;
+}
+
+.read {
+  margin-right: -90%;
+  color: chocolate;
+  font-size: 15px;
 }

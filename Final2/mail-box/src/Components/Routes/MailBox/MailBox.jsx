@@ -88,18 +88,25 @@ const MailBox = () => {
   return (
     <>
       <div style={{ padding: "40px" }}>
-        <Link to={"/inbox"}>
-          <button className="btn" style={{ float: "right" }}>
-            Your Inbox
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <button
+            onClick={handleCOmpose}
+            className="btn"
+            style={{ float: "left", width: "10%" }}
+          >
+            Compose
           </button>
-        </Link>
-        <button
-          onClick={handleCOmpose}
-          className="btn"
-          style={{ float: "left" }}
-        >
-          Compose
-        </button>
+          <Link to={"/inbox"}>
+            <button className="btn" style={{ float: "left", width: "10%" }}>
+              Your Inbox
+            </button>
+          </Link>
+          <Link to={"/sent"}>
+            <button className="btn" style={{ float: "left", width: "10%" }}>
+              Sent Inbox
+            </button>
+          </Link>
+        </div>
         {!show && <h1>Click On Compose To Send Email's 💌</h1>}
         {show && (
           <div>

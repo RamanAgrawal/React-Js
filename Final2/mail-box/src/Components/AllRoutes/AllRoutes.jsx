@@ -5,7 +5,10 @@ import Inbox from "../Routes/Inbox/Inbox";
 import Login from "../Routes/Login/Login";
 import MailBox from "../Routes/MailBox/MailBox";
 import PrivateRoutes from "../Routes/PrivateRoute/PrivateRoutes";
+import Sent from "../Routes/Sent/Sent";
+import SingleSent from "../Routes/Sent/SingleSent";
 import Signup from "../Routes/Signup/Signup";
+import Singlemail from "../Routes/SingleMail/Singlemail";
 const AllRoutes = () => {
   return (
     <Routes>
@@ -23,6 +26,30 @@ const AllRoutes = () => {
         element={
           <PrivateRoutes>
             <Inbox />
+          </PrivateRoutes>
+        }
+      ></Route>
+      <Route
+        path="/sent"
+        element={
+          <PrivateRoutes>
+            <Sent />
+          </PrivateRoutes>
+        }
+      ></Route>
+      <Route
+        path="/inbox/:id"
+        element={
+          <PrivateRoutes>
+            <Singlemail />
+          </PrivateRoutes>
+        }
+      ></Route>
+      <Route
+        path="/sent/:id"
+        element={
+          <PrivateRoutes>
+            <SingleSent />
           </PrivateRoutes>
         }
       ></Route>
