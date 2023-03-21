@@ -6,7 +6,6 @@ import { AiFillDelete } from "react-icons/ai";
 import { toast, ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
 const Inbox = () => {
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const inbox = useSelector((store) => {

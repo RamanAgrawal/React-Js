@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const Sent = () => {
@@ -84,11 +85,14 @@ const Sent = () => {
               className="delete"
               onClick={() => handleDelete(sentMails.id)}
             />
-            <p>{sentMails.to}</p>
+            <p>To : {sentMails.to}</p>
             <div style={{ display: "flex", gap: "10px" }}>
               <p>Message : </p>
               <p dangerouslySetInnerHTML={{ __html: sentMails.body }}></p>
             </div>
+            <Link className="read" to={`/sent/${sentMails.id}`}>
+              Read Mail
+            </Link>
           </div>
         );
       })}
