@@ -16,9 +16,6 @@ const mailSlice = createSlice({
     inbox(state, action) {
       state.inbox = action.payload;
     },
-    sent(state, action) {
-      state.sent = action.payload;
-    },
     delete(state, action) {
       delete state.inbox[action.payload];
     },

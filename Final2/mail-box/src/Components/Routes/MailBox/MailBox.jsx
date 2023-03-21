@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { mailAction } from "../../Store/MailSlice";
 const MailBox = () => {
-  const to = useRef();
-  const area = useRef();
+  const toEMail = useRef();
+  const areaRef = useRef();
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -15,13 +15,15 @@ const MailBox = () => {
     return store.auth.email;
   });
   const handleSend = async () => {
-    const toEmail = to.current.value;
-    const toArea = area.current.value;
-    const fromMail = toEmail.replace("@", "").replace(".", "");
-    const toMail = toEmail.replace("@", "").replace(".", "");
+    const to = toEMail.current.value;
+    const body = areaRef.current.value;
+    const fromMail = email.replace("@", "").replace(".", "");
+    console.log("fromMail:", fromMail);
+    const toMail = to.replace("@", "").replace(".", "");
+    console.log("toMail:", toMail);
     const obj = {
-      to: toEmail,
-      body: toArea,
+      to: to,
+      body: body,
     };
     try {
       setLoading(true);
@@ -32,7 +34,7 @@ const MailBox = () => {
       dispatch(
         mailAction.mailSent({
           id: res.data.name,
-          mail: { to: toEmail, body: toArea },
+          mail: { to: to, body: body },
         })
       );
       toast.success("Mail-Sent", {
@@ -52,7 +54,7 @@ const MailBox = () => {
 
     const obj2 = {
       from: email,
-      body: toArea,
+      body: body,
       read: false,
     };
 
@@ -62,6 +64,7 @@ const MailBox = () => {
         `https://mail-box-4b435-default-rtdb.firebaseio.com/${toMail}/inbox.json`,
         obj2
       );
+      dispatch(mailAction.sent({}));
       setLoading(false);
       console.log(res);
     } catch (error) {
@@ -115,9 +118,9 @@ const MailBox = () => {
             </h1>
             <div className="mail">
               <div>
-                <input type="text" placeholder="To" ref={to} />
+                <input type="text" placeholder="To" ref={toEMail} />
               </div>
-              <JoditEditor ref={area} />
+              <JoditEditor ref={areaRef} />
             </div>
             <button className="btn" onClick={handleSend}>
               Send
