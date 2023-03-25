@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import "./App.css";
 import AllRotes from "./Components/AllRoutes/AllRotes";
 import { ThemeContext } from "./Components/Context/Theme";
@@ -17,6 +17,7 @@ function App() {
       background: "black",
     },
   };
+
   return (
     <div
       className="App"
